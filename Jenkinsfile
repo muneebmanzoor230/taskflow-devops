@@ -55,10 +55,12 @@ pipeline {
 
         stage('Docker Push') {
             steps {
-                sh '''
-                    docker push \
-                    ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
-                '''
+                retry(3) {
+                    sh '''
+                        docker push \
+                        ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+                    '''
+                }
             }
         }
     }
