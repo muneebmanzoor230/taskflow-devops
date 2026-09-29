@@ -8,6 +8,6 @@ public class HealthController {
 
     @GetMapping("/api/health")
     public String health() {
-        return "TaskFlow is running";
+        return "TaskFlow v2 is running";
     }
 }

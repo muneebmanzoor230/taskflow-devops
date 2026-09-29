@@ -25,6 +25,6 @@ class HealthControllerTest {
                 String.class
         );
 
-        assertThat(response).isEqualTo("TaskFlow is running");
+        assertThat(response).isEqualTo("TaskFlow v2 is running");
     }
 }
