@@ -63,12 +63,24 @@ pipeline {
                 }
             }
         }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                    kubectl set image deployment/taskflow \
+                    taskflow=${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}
+
+                    kubectl rollout status deployment/taskflow --timeout=180s
+                '''
+            }
+        }
     }
 
     post {
 
         success {
             echo 'TaskFlow CI/CD pipeline completed successfully!'
+            echo "Deployed image: ${ECR_REGISTRY}/${ECR_REPOSITORY}:${IMAGE_TAG}"
         }
 
         failure {
